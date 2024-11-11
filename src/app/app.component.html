@@ -1,28 +1,47 @@
-<h1>Password Generator</h1>
+<div class="container">
+  <div class="columns is-centered">
+    <div class="box column is-half">
+      <h1 class="title has-text-centred">Password Generator</h1>
+      <div class="field">
+        <label>Length</label>
+        <input class="input" type="number" min="4" max="60" [(ngModel)]="length"/>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox" ame="use-letters" id="use-letters" [(ngModel)]="useLetters"/>
+            Use letters
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox" name="use-numbers" id="use-numbers" [(ngModel)]="useNumbers"/>
+            Use numbers
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox" name="use-symbols" id="use-symbols" [(ngModel)]="useSymbols"/>
+            Use symbols
+          </label>
+        </div>
+      </div>
+      <div>
+        <button class="button is-link is-fullwidth" [disabled]="!useLetters && !useNumbers && !useSymbols"
+                (click)="generate()">Generate
+        </button>
+      </div>
+      <div class="box" *ngIf="password">
+        <label class="center" for="password">
+          <input class="input" type="text" id="password" [value]="password" readonly (click)="copy()">
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
 
-<div>
-  <label for="length">Enter length: <span id="length-output">{{ length }}</span></label>
-  <br>
-  <input type="range" id="length" name="length" min="4" max="60" step="1" [(ngModel)]="length"/>
-</div>
-<div>
-  <label for="use-letters">Use letters:</label>
-  <input type="checkbox" name="use-letters" id="use-letters" [(ngModel)]="useLetters" >
-</div>
-<div>
-  <label for="use-numbers">Use numbers:</label>
-  <input type="checkbox" name="use-numbers" id="use-numbers" [(ngModel)]="useNumbers">
-</div>
-<div>
-  <label for="use-symbols">Use symbols:</label>
-  <input type="checkbox" name="use-symbols" id="use-symbols" [(ngModel)]="useSymbols">
-</div>
-<div>
-  <button (click)="generate()">Generate</button>
-</div>
-<div *ngIf="password">
-  <label for="password">Your generated password:</label>
-  <input type="text" id="password" [value]="password" readonly>
-  <button (click)="copy()">Copy</button>
-</div>
 

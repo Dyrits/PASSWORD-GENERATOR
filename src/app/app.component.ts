@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 import { letters, numbers, symbols } from "./constants";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.scss"
 })
 export class AppComponent {
   length: number = 20;
@@ -15,7 +15,7 @@ export class AppComponent {
 
   generate() {
     if (!this.useLetters && !this.useNumbers && !this.useSymbols) {
-      alert('Please, select at least one character type to include in your password.');
+      alert("Please, select at least one character type to include in your password.");
     } else {
       this.password = this.generatePassword();
     }
@@ -23,7 +23,7 @@ export class AppComponent {
 
   copy() {
     navigator.clipboard.writeText(this.password).then(() => {
-      alert('Password copied to clipboard');
+      alert("Password copied to clipboard");
     });
   }
 
@@ -38,6 +38,7 @@ export class AppComponent {
 
   private generatePassword() {
     const password = Array.from({ length: this.length });
+    // The following code ensure that at least one character of each type is included in the password if the user has selected it.
     const exclude: number[] = [];
     if (this.useLetters) {
       const index = this.getRandomIndex(this.length, exclude);
@@ -54,7 +55,11 @@ export class AppComponent {
       password[index] = this.getRandomCharacter(symbols);
       exclude.push(index);
     }
-    const characters = [this.useLetters ? letters : [], this.useNumbers ? numbers : [], this.useSymbols ? symbols : []].flat();
-    return password.map((character) => character || characters[Math.floor(Math.random() * characters.length)]).join("")
+    const characters = [
+      this.useLetters ? letters : [],
+      this.useNumbers ? numbers : [],
+      this.useSymbols ? symbols : []
+    ].flat();
+    return password.map((character) => character || characters[Math.floor(Math.random() * characters.length)]).join("");
   }
 }
